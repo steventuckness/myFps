@@ -86,6 +86,7 @@ bounce = 0.6
 [node name="Box" type="Spatial" parent="."]
 
 [node name="Floor_plane" type="MeshInstance" parent="Box"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.90735e-06, -1.90735e-06, 0 )
 mesh = SubResource( 1 )
 material/0 = SubResource( 2 )
 
