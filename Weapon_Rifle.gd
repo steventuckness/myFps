@@ -35,7 +35,6 @@ func equip_weapon():
 	return false
 
 func unequip_weapon():
-
 	if player_node.animation_manager.current_state == IDLE_ANIM_NAME:
 		if player_node.animation_manager.current_state != "Rifle_unequip":
 			player_node.animation_manager.set_animation("Rifle_unequip")
