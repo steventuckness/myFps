@@ -1,6 +1,7 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://RigidBody_hit_test.gd" type="Script" id=2]
 
 [sub_resource type="PlaneMesh" id=1]
 size = Vector2( 80, 80 )
@@ -93,6 +94,7 @@ material/0 = SubResource( 2 )
 [node name="StaticBody" type="StaticBody" parent="Box/Floor_plane"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Box/Floor_plane/StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.028368, 0.0303802, 0.0113182 )
 shape = SubResource( 3 )
 
 [node name="Celing_plane" type="MeshInstance" parent="Box"]
@@ -107,7 +109,7 @@ material/0 = SubResource( 2 )
 shape = SubResource( 3 )
 
 [node name="Wall_1" type="MeshInstance" parent="Box"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -0.640566, 37.0752, 39.6568 )
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -0.61693, 37.0752, 39.5976 )
 cast_shadow = 2
 mesh = SubResource( 1 )
 material/0 = SubResource( 2 )
@@ -140,7 +142,7 @@ material/0 = SubResource( 2 )
 shape = SubResource( 3 )
 
 [node name="Wall_4" type="MeshInstance" parent="Box"]
-transform = Transform( -1, 3.25841e-07, 5.30863e-14, 0, -1.62921e-07, 1, 3.25841e-07, 1, 1.62921e-07, -0.569376, 37.0752, -37.7189 )
+transform = Transform( -1, 3.25841e-07, 5.30863e-14, 0, -1.62921e-07, 1, 3.25841e-07, 1, 1.62921e-07, -0.610476, 37.0752, -37.7784 )
 cast_shadow = 2
 mesh = SubResource( 1 )
 material/0 = SubResource( 2 )
@@ -172,11 +174,13 @@ environment = SubResource( 7 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.95316, 23.1277 )
 mass = 5.0
 gravity_scale = 3.0
+script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/PurpleCube"]
 shape = SubResource( 8 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Cubes/PurpleCube"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0284612, -0.00374603, -0.0958729 )
 mesh = SubResource( 9 )
 material/0 = SubResource( 10 )
 
@@ -184,11 +188,13 @@ material/0 = SubResource( 10 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.23405, 9.95316, 23.1277 )
 mass = 5.0
 gravity_scale = 3.0
+script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/PurpleCube2"]
 shape = SubResource( 8 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Cubes/PurpleCube2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.028748, 0.0150738, -0.0428791 )
 mesh = SubResource( 9 )
 material/0 = SubResource( 10 )
 
@@ -196,11 +202,13 @@ material/0 = SubResource( 10 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.85143, 9.95316, 23.1277 )
 mass = 5.0
 gravity_scale = 3.0
+script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/PurpleCube3"]
 shape = SubResource( 8 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Cubes/PurpleCube3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0135226, 0.0266361, -0.0509052 )
 mesh = SubResource( 9 )
 material/0 = SubResource( 10 )
 
@@ -208,6 +216,7 @@ material/0 = SubResource( 10 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.85143, 17.1576, 23.1277 )
 mass = 5.0
 gravity_scale = 3.0
+script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/PurpleCube4"]
 shape = SubResource( 8 )
@@ -220,11 +229,14 @@ material/0 = SubResource( 10 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.85143, 24.1593, 23.1277 )
 mass = 5.0
 gravity_scale = 3.0
+script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/PurpleCube5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0134296, 1.90735e-06, 0.0336494 )
 shape = SubResource( 8 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Cubes/PurpleCube5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0166106, -0.00374603, -0.125574 )
 mesh = SubResource( 9 )
 material/0 = SubResource( 10 )
 
@@ -232,11 +244,13 @@ material/0 = SubResource( 10 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.451504, 17.9137, 23.1277 )
 mass = 5.0
 gravity_scale = 3.0
+script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/PurpleCube6"]
 shape = SubResource( 8 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Cubes/PurpleCube6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0284612, -0.00374603, -0.0958729 )
 mesh = SubResource( 9 )
 material/0 = SubResource( 10 )
 
@@ -245,11 +259,13 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.95316, -21.6551 )
 mass = 5.0
 physics_material_override = SubResource( 11 )
 gravity_scale = 3.0
+script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/GreenCube"]
 shape = SubResource( 8 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Cubes/GreenCube"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.012207, 0.0500298, -0.0461674 )
 mesh = SubResource( 9 )
 material/0 = SubResource( 12 )
 
@@ -257,11 +273,13 @@ material/0 = SubResource( 12 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.79916, 9.95316, -21.6551 )
 mass = 5.0
 physics_material_override = SubResource( 13 )
+script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/GreenCube2"]
 shape = SubResource( 8 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Cubes/GreenCube2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0176506, 0, -0.0255394 )
 mesh = SubResource( 9 )
 material/0 = SubResource( 12 )
 
@@ -270,11 +288,13 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.58552, 9.95316, -21.6551 )
 mass = 5.0
 physics_material_override = SubResource( 14 )
 gravity_scale = 3.0
+script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/GreenCube3"]
 shape = SubResource( 8 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Cubes/GreenCube3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.012207, 0.0500298, -0.0461674 )
 mesh = SubResource( 9 )
 material/0 = SubResource( 12 )
 
@@ -283,11 +303,13 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.79556, 17.3734, -21.6551 )
 mass = 5.0
 physics_material_override = SubResource( 15 )
 gravity_scale = 3.0
+script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/GreenCube4"]
 shape = SubResource( 8 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Cubes/GreenCube4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.012207, 0.0500298, -0.0461674 )
 mesh = SubResource( 9 )
 material/0 = SubResource( 12 )
 
@@ -296,11 +318,13 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.51582, 17.3734, -21.6551 )
 mass = 5.0
 physics_material_override = SubResource( 16 )
 gravity_scale = 3.0
+script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/GreenCube5"]
 shape = SubResource( 8 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Cubes/GreenCube5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00535965, 0.0500259, -0.0715885 )
 mesh = SubResource( 9 )
 material/0 = SubResource( 12 )
 
@@ -309,10 +333,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.602769, 24.9266, -21.6551 )
 mass = 3.0
 physics_material_override = SubResource( 17 )
 gravity_scale = 3.0
+script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Cubes/GreenCube6"]
 shape = SubResource( 8 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Cubes/GreenCube6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.012207, 0.0500298, -0.0461674 )
 mesh = SubResource( 9 )
 material/0 = SubResource( 12 )
