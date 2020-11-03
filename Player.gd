@@ -48,6 +48,17 @@ const MOUSE_SENSITIVITY_SCROLL_WHEEL = 0.08
 
 const MAX_HEALTH = 150
 
+var grenade_amounts = {"Grenade":2, "Sticky Grenade":2}
+var current_grenade = "Grenade"
+var grenade_scene = preload("res://Grenade.tscn")
+var sticky_grenade_scene = preload("res://Sticky_Grenade.tscn")
+const GRENADE_THROW_FORCE = 50
+
+var grabbed_object = null
+const OBJECT_THROW_FORCE = 120
+const OBJECT_GRAB_DISTANCE = 7
+const OBJECT_GRAB_RAY_DISTANCE = 10
+
 func _ready():
 	camera = $Rotation_Helper/Camera
 	rotation_helper = $Rotation_Helper
@@ -78,10 +89,14 @@ func _ready():
 
 func _physics_process(delta):
 	process_input(delta)
-	process_view_input (delta)
+	process_view_input(delta)
 	process_movement(delta)
-	process_changing_weapons(delta)
-	process_reloading(delta)
+
+	if grabbed_object == null:
+		process_changing_weapons(delta)
+		process_reloading(delta)
+
+	# Process the UI
 	process_UI(delta)
 
 func process_input(delta):
@@ -215,7 +230,63 @@ func process_input(delta):
 									is_reloading = true
 						if is_reloading == false:
 							reloading_weapon = true
-	# ----------------------------------	
+	# ----------------------------------
+	# ----------------------------------
+	# Changing and throwing grenades
+
+	if Input.is_action_just_pressed("change_grenade"):
+		if current_grenade == "Grenade":
+			current_grenade = "Sticky Grenade"
+		elif current_grenade == "Sticky Grenade":
+			current_grenade = "Grenade"
+
+	if Input.is_action_just_pressed("fire_grenade"):
+		if grenade_amounts[current_grenade] > 0:
+			grenade_amounts[current_grenade] -= 1
+
+			var grenade_clone
+			if current_grenade == "Grenade":
+				grenade_clone = grenade_scene.instance()
+			elif current_grenade == "Sticky Grenade":
+				grenade_clone = sticky_grenade_scene.instance()
+				# Sticky grenades will stick to the player if we do not pass ourselves
+				grenade_clone.player_body = self
+
+			get_tree().root.add_child(grenade_clone)
+			grenade_clone.global_transform = $Rotation_Helper/Grenade_Toss_Pos.global_transform
+			grenade_clone.apply_impulse(Vector3(0, 0, 0), grenade_clone.global_transform.basis.z * GRENADE_THROW_FORCE)
+	# ----------------------------------
+	# ----------------------------------
+	# Grabbing and throwing objects
+	if Input.is_action_just_pressed("fire") and current_weapon_name == "UNARMED":
+		if grabbed_object == null:
+			var state = get_world().direct_space_state
+
+			var center_position = get_viewport().size / 2
+			var ray_from = camera.project_ray_origin(center_position)
+			var ray_to = ray_from + camera.project_ray_normal(center_position) * OBJECT_GRAB_RAY_DISTANCE
+
+			var ray_result = state.intersect_ray(ray_from, ray_to, [self, $Rotation_Helper/Gun_Fire_Points/Knife_Point/Area])
+			if !ray_result.empty():
+				if ray_result["collider"] is RigidBody:
+					grabbed_object = ray_result["collider"]
+					grabbed_object.mode = RigidBody.MODE_STATIC
+
+					grabbed_object.collision_layer = 0
+					grabbed_object.collision_mask = 0
+		else:
+			grabbed_object.mode = RigidBody.MODE_RIGID
+
+			grabbed_object.apply_impulse(Vector3(0, 0, 0), -camera.global_transform.basis.z.normalized() * OBJECT_THROW_FORCE)
+
+			grabbed_object.collision_layer = 1
+			grabbed_object.collision_mask = 1
+
+			grabbed_object = null
+
+	if grabbed_object != null:
+		grabbed_object.global_transform.origin = camera.global_transform.origin + (-camera.global_transform.basis.z.normalized() * OBJECT_GRAB_DISTANCE)
+	# ----------------------------------
 
 func process_movement(delta):
 	dir.y = 0
@@ -318,13 +389,17 @@ func process_reloading(delta):
 			current_weapon.reload_weapon()
 		reloading_weapon = false
 	
-func process_UI(_delta):
+func process_UI(delta):
 	if current_weapon_name == "UNARMED" or current_weapon_name == "KNIFE":
-		UI_status_label.text = "HEALTH: " + str(health)
+		# First line: Health, second line: Grenades
+		UI_status_label.text = "HEALTH: " + str(health) + \
+				"\n" + current_grenade + ": " + str(grenade_amounts[current_grenade])
 	else:
 		var current_weapon = weapons[current_weapon_name]
+		# First line: Health, second line: weapon and ammo, third line: grenades
 		UI_status_label.text = "HEALTH: " + str(health) + \
-		"\nAMMO: " + str(current_weapon.ammo_in_weapon) + "/" + str(current_weapon.spare_ammo)
+				"\nAMMO: " + str(current_weapon.ammo_in_weapon) + "/" + str(current_weapon.spare_ammo) + \
+				"\n" + current_grenade + ": " + str(grenade_amounts[current_grenade])
 		
 func create_sound(sound_name, position=null):
 	var audio_clone = simple_audio_player.instance()
@@ -372,4 +447,11 @@ func add_health(additional_health):
 func add_ammo(additional_ammo):
 	if (current_weapon_name != "UNARMED"):
 		if (weapons[current_weapon_name].CAN_REFILL == true):
-			weapons[current_weapon_name].spare_ammo += weapons[current_weapon_name].AMMO_IN_MAG * additional_ammo
+			weapons[current_weapon_name].spare_ammo += weapons[current_weapon_name].AMMO_IN_MAG * additional_ammo\
+			
+func add_grenade(additional_grenade):
+	grenade_amounts[current_grenade] += additional_grenade
+	grenade_amounts[current_grenade] = clamp(grenade_amounts[current_grenade], 0, 4)
+	
+func bullet_hit(damage, bullet_hit_pos):
+	health -= damage

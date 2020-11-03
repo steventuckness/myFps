@@ -1,10 +1,12 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://assets/Gamemode_Objects/Metal_Two.material" type="Material" id=1]
 [ext_resource path="res://assets/Gamemode_Objects/Metal_One.material" type="Material" id=2]
 [ext_resource path="res://assets/Gamemode_Objects/Emissive_Orange.material" type="Material" id=3]
 [ext_resource path="res://assets/Gamemode_Objects/Metal_Three.material" type="Material" id=4]
 [ext_resource path="res://assets/Gamemode_Objects/Emissive_White.material" type="Material" id=5]
+[ext_resource path="res://Turret.gd" type="Script" id=6]
+[ext_resource path="res://TurretBodies.gd" type="Script" id=7]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Cube.047"
@@ -180,6 +182,7 @@ radial_segments = 6
 rings = 3
 
 [node name="Turret" type="Spatial"]
+script = ExtResource( 6 )
 
 [node name="Base" type="Spatial" parent="."]
 
@@ -193,6 +196,8 @@ material/2 = null
 material/3 = null
 
 [node name="Static_Body" type="StaticBody" parent="Base"]
+script = ExtResource( 7 )
+path_to_turret_root = NodePath("../..")
 
 [node name="Collision_Shape" type="CollisionShape" parent="Base/Static_Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.68306, 0.587342 )
