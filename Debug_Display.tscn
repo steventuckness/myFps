@@ -1,4 +1,6 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Debug_Display.gd" type="Script" id=1]
 
 [node name="Debug_Display" type="Control"]
 modulate = Color( 1, 1, 1, 0.784314 )
@@ -6,6 +8,10 @@ anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -280.0
 margin_bottom = 70.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Panel" type="Panel" parent="."]
 anchor_right = 1.0

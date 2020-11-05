@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://RigidBody_hit_test.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Ammo_Pickup.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Target.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Turret.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Respawn_Point_Setter.gd" type="Script" id=7]
 
 [sub_resource type="PlaneMesh" id=1]
 size = Vector2( 80, 80 )
@@ -113,7 +114,7 @@ material/0 = SubResource( 2 )
 shape = SubResource( 3 )
 
 [node name="Wall_1" type="MeshInstance" parent="Box"]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -0.61693, 37.0752, 39.5976 )
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, -1.02577, 36.9838, 39.2788 )
 cast_shadow = 2
 mesh = SubResource( 1 )
 material/0 = SubResource( 2 )
@@ -166,6 +167,14 @@ omni_range = 60.0
 cast_shadow = 0
 mesh = SubResource( 4 )
 material/0 = SubResource( 5 )
+
+[node name="Spawn_Points" type="Spatial" parent="."]
+script = ExtResource( 7 )
+
+[node name="Position3D" type="Position3D" parent="Spawn_Points"]
+
+[node name="Position3D2" type="Position3D" parent="Spawn_Points"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -26.4921, 0, 0 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 
