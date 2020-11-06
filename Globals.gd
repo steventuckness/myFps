@@ -21,7 +21,6 @@ var respawn_points = null
 
 # All the audio files.
 
-# You will need to provide your own sound files.
 var audio_clips = {
 	"Pistol_shot": preload("res://assets/sounds/gun_revolver_pistol_shot_04.wav"),
 	"Rifle_shot": preload("res://assets/sounds/gun_submachine_auto_shot_00_automatic_preview_01.wav"),
