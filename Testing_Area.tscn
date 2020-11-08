@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://RigidBody_hit_test.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Target.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Turret.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Respawn_Point_Setter.gd" type="Script" id=7]
+[ext_resource path="res://assets/zombie/zombie.tscn" type="PackedScene" id=8]
 
 [sub_resource type="PlaneMesh" id=1]
 size = Vector2( 80, 80 )
@@ -388,3 +389,6 @@ transform = Transform( -0.0189533, 0, 0.99982, 0, 1, 0, -0.99982, 0, -0.0189533,
 
 [node name="Turret" parent="." instance=ExtResource( 6 )]
 transform = Transform( 0.733101, 0, -0.68012, 0, 1, 0, 0.68012, 0, 0.733101, -28.8519, 0, 26.7251 )
+
+[node name="zombie" parent="." instance=ExtResource( 8 )]
+transform = Transform( -5.53991, 0, -4.27895, 0, 7, 0, 4.27895, 0, -5.53991, 24.4341, -0.240034, 15.0205 )
