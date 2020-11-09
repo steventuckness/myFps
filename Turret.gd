@@ -98,10 +98,8 @@ func _physics_process(delta):
 
 
 func fire_bullet():
-
 	if use_raycast == true:
 		node_raycast.look_at(current_target.global_transform.origin + Vector3(0, PLAYER_HEIGHT, 0), Vector3(0, 1, 0))
-
 		node_raycast.force_raycast_update()
 
 		if node_raycast.is_colliding():

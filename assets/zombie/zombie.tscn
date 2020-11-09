@@ -1,7 +1,36 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/zombie/zombie.gltf" type="PackedScene" id=1]
 [ext_resource path="res://assets/zombie/Zombie.gd" type="Script" id=2]
 
+[sub_resource type="SphereShape" id=1]
+
+[sub_resource type="SphereShape" id=2]
+radius = 1.2
+
 [node name="zombie" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+
+[node name="Skeleton" parent="Armature" index="0"]
+bones/1/bound_children = [ NodePath("torso") ]
+bones/5/bound_children = [ NodePath("head") ]
+
+[node name="head" type="BoneAttachment" parent="Armature/Skeleton" index="1"]
+transform = Transform( 1, 1.31785e-16, 7.10475e-15, 3.11115e-15, 1, -2.08334e-07, -5.32875e-15, 2.08334e-07, 1, -5.04267e-06, 1.8532, -0.0560538 )
+bone_name = "head"
+
+[node name="zombiehitbox_head" type="Area" parent="Armature/Skeleton/head" index="0"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Armature/Skeleton/head/zombiehitbox_head" index="0"]
+transform = Transform( 0.11, 8.21841e-24, -4.76456e-22, -5.65016e-24, 0.16, 2.66454e-14, 3.49401e-22, -2.84217e-14, 0.15, 0.000235199, 0.0590193, 0.0326148 )
+shape = SubResource( 1 )
+
+[node name="torso" type="BoneAttachment" parent="Armature/Skeleton" index="2"]
+transform = Transform( 1, -1.81886e-12, 7.10543e-15, 1.8221e-12, 1, -1.91437e-07, -5.32907e-15, 1.91437e-07, 1, -5.04276e-06, 1.14949, -0.0161954 )
+bone_name = "spine"
+
+[node name="zombiehitbox_torso" type="Area" parent="Armature/Skeleton/torso" index="0"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Armature/Skeleton/torso/zombiehitbox_torso" index="0"]
+transform = Transform( 0.198127, 2.02822e-13, 2.27208e-16, 2.03183e-13, 0.309637, -2.74701e-08, 1.70405e-16, -2.74701e-08, 0.166143, -0.0164528, 0.271193, -0.0577384 )
+shape = SubResource( 2 )
